@@ -1,0 +1,84 @@
+{% extends 'master/base/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="app-content">
+    <div class="side-app">
+
+
+
+        <!-- ROW-1 -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Transaksi Belanja</h3>
+                                <div class="card-options">
+                                   
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover card-table table-striped table-vcenter table-outline text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th>Kode Belanja</th>
+                                            <th>Tanggal Belanja</th>
+                                            <th>Store</th>
+                                            <th>Bukti</th>
+                                            <th>Keterangan</th>
+                                            <th>Kode Transaksi Belanja</th>
+                                            <th>Uraian</th>
+                                            <th>Jumlah</th>
+                                            <th>Realisasi</th>
+                                            <th>Sisa</th>
+                                            <th>Saldo</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for transaksi in transaksi_belanja %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ transaksi.kode_belanja }}</td>
+                                                <td>{{ transaksi.tgl_belanja }}</td>
+                                                <td>{{ transaksi.store }}</td>
+                                                <td>
+                                                    {% if transaksi.upload_bukti %}
+                                                    <img src="{{ transaksi.upload_bukti.url }}" alt="Bukti Belanja" style="max-width: 200px; max-height: 200px;">
+                                                    {% else %}
+                                                        No file
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ transaksi.keterangan }}</td>
+                                                <td>{{ transaksi.kode_transaksi_belanja.jumlah_anggaran }}</td>
+                                                <td>{{ transaksi.urai_belanja }}</td>
+                                                <td>{{ transaksi.jumlah }}</td>
+                                                <td>{{ transaksi.realisasi }}</td>
+                                                <td>{{ transaksi.sisa }}</td>
+                                                <td>{{ transaksi.saldo }}</td>
+                                                <td>
+                                                    <button type="button" id="edit-button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editTransaksiBelanjaModal{{ transaksi.id }}">
+                                                        <i class="fa fa-edit"></i> Edit
+                                                    </button>
+                                                    <a type="button" class="btn btn-sm btn-danger" href="{% url 'delete_transaksi_belanja' transaksi_id=transaksi_id belanja_id=transaksi.id  %}" onclick="return confirm('Apakah kamu ingin menghapus transaksi ini?');">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </a>  
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- Modal -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ROW-1 END -->
+    </div>
+</div>
+{% endblock %}

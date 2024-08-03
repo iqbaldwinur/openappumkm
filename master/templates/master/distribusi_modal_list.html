@@ -1,0 +1,164 @@
+{% extends 'master/base/base_index.html' %}
+{% load static %}
+{% block content %}
+<div class="app-content">
+    <div class="side-app">
+
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">distribusi modal </h1>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">distribusi modal </li>
+                </ol>
+            </div>
+            <div class="ms-auto pageheader-btn">
+                <button type="button" class="btn btn-primary btn-icon text-white me-2"  data-bs-toggle="modal" data-bs-target="#addDistribusiModal">
+                    <span>
+                        <i class="fe fe-plus"></i>
+                    </span> tambah distribusi modal
+                </button>
+            
+
+
+                <a href="#" class="btn btn-success btn-icon text-white">
+                    <span>
+                        <i class="fe fe-log-in"></i>
+                    </span> Export
+                </a>
+            </div>
+        </div>
+        <!-- PAGE-HEADER END -->
+
+        {% comment %} modal tambah data {% endcomment %}
+        <div class="modal fade" id="addDistribusiModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">tambah distribusi modal</h5>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addDistribusiModalForm" method="post" action="{% url 'create_distribusi_modal' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="tanggal_masuk">Tanggal Masuk</label>
+                                <input
+                                  type="date"
+                                  class="form-control"
+                                  id="tanggal_masuk"
+                                  name="tanggal_masuk"
+                                  required
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="nominal">nominal</label>
+                                <input type="number" id="nominal" name="nominal" class="form-control" required></input>
+                            </div>
+                            <div class="form-group">
+                                <label for="Sumber">Sumber</label>
+                                <select class="form-control" id="sumber" name="sumber" required>
+                                    <option value="Rekening Utama">Rekening Utama</option>
+                                    <option value="Rekening Lainnya">Rekening Lainnya</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">status</label>
+                                <select class="form-control" id="status" name="status" required>
+                                    <option value="Transfer">Transfer</option>
+                                    <option value="Cash">Cash</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="keperluan_bulan">Keperluan Bulan</label>
+                                <input type="text" id="keperluan_bulan" name="keperluan_bulan" class="form-control" required>
+                            </div>                              
+                             <button type="submit" class="btn btn-primary">Save changes</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        {% comment %} <button class="btn btn-primary" id="addUserSaveBtn">Save changes</button> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- ROW-1 -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                <div class="row">
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header ">
+                        <h3 class="card-title ">distribusi modal</h3>
+
+                    </div>
+                
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-nowrap border-bottom" id="basic-datatable">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal Masuk</th>
+                                        <th>Nominal</th>
+                                        <th>Sumber</th>
+                                        <th>Status</th>
+                                        <th>Keperluan Bulan</th>
+                                        <th scope="col">Edit Project Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in distribusi_modal %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ item.tanggal_masuk }}</td>
+                                            <td>{{ item.nominal }}</td>
+                                            <td>{{ item.sumber }}</td>
+                                            <td>{{ item.status }}</td>
+                                            <td>{{ item.keperluan_bulan }}</td>
+                                            
+                                            <td>
+                                                
+                                                {% comment %} <a class="btn btn-sm btn-primary" href="{% url 'edit_user' user.id %}"><i class="fa fa-edit"></i> Edit</a> {% endcomment %}
+                                                <button type="button" id="edit-button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editdistribusiModal{{ item.id }}"><i class="fa fa-edit"></i> Edit</button> 
+                                                
+                                                <a type="button" class="btn btn-sm btn-danger" href="{% url 'delete_distribusi_modal' item.id %}" 
+                                                onclick="return confirm('apakah kamu ingin menghapus distribusi modal?');"><i class="fa fa-trash"></i> Delete</a>
+                                            </td>
+                                        </tr>
+                                        {%  include 'master/edit_distribusi_modal.html' %}
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Modal -->
+                    </div>
+                    
+                </div>
+                </div>
+            </div>
+        </div>
+
+                    <!-- ROW-5 END -->
+                </div>
+            </div>
+        </div>
+        <!-- ROW-1 END -->
+
+        <!-- ROW-3 -->
+        <!-- ROW-3 END -->
+
+        <!-- ROW-5 -->
+    </div>
+</div>
+
+
+{% endblock %}

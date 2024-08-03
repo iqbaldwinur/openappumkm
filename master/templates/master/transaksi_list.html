@@ -1,0 +1,125 @@
+{% extends 'master/base/base_index.html' %}
+{% load static %}
+{% block content %}
+<div class="app-content">
+    <div class="side-app">
+
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Daftar Transaksi</h1>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Transaksi</li>
+                </ol>
+            </div>
+            <div class="ms-auto pageheader-btn">
+                <button type="button" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addTransaksiModal">
+                    <span>
+                        <i class="fe fe-plus"></i>
+                    </span> Tambah Transaksi
+                </button>
+                <a href="#" class="btn btn-success btn-icon text-white">
+                    <span>
+                        <i class="fe fe-log-in"></i>
+                    </span> Export
+                </a>
+            </div>
+        </div>
+        <!-- PAGE-HEADER END -->
+
+        <!-- Modal Tambah Transaksi -->
+        <div class="modal fade" id="addTransaksiModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Tambah Transaksi</h5>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addTransaksiForm" method="post" action="{% url 'create_transaksi' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="tanggal">Tanggal Transaksi</label>
+                                <input type="date" class="form-control" id="tanggal" name="tanggal" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="store">Store</label>
+                                <input type="text" class="form-control" id="store" name="store" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="keterangan">Keterangan</label>
+                                <textarea class="form-control" id="keterangan" name="keterangan" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="jumlah_anggaran">Jumlah Anggaran</label>
+                                <select class="form-control" id="jumlah_anggaran" name="jumlah_anggaran" required>
+                                    <option value="" selected disabled>Pilih Anggaran</option>
+                                    {% for item in anggaran_list %}
+                                        <option value="{{ item.id }}">{{ item.jumlah_anggaran }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Tambah Transaksi END -->
+
+        <!-- Daftar Transaksi -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Daftar Transaksi</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-nowrap border-bottom" id="basic-datatable">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal Transaksi</th>
+                                        <th>Store</th>
+                                        <th>Keterangan</th>
+                                        <th>Jumlah Anggaran</th>
+                                        <th>Jumlah Realisasi</th>
+                                        <th>Selisih</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for transaksi in transaksi_list %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ transaksi.tanggal }}</td>
+                                            <td>{{ transaksi.store }}</td>
+                                            <td>{{ transaksi.keterangan }}</td>
+                                            <td>{{ transaksi.jumlah_anggaran.jumlah_anggaran }}</td>
+                                            <td>{{ transaksi.jumlah_realisasi }}</td>
+                                            <td>{{ transaksi.selisih }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editTransaksiModal{{ transaksi.id }}"><i class="fa fa-edit"></i> Edit</button>
+                                                <a href="{% url 'delete_transaksi' transaksi.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus transaksi ini?');"><i class="fa fa-trash"></i> Delete</a>
+                                                <a href="{% url 'transaksi_belanja_list' transaksi.id %}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i> Detail</a>
+                                            </td>
+                                        </tr>
+                                        {% include 'master/edit_transaksi_list.html' with transaksi=transaksi %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Daftar Transaksi END -->
+
+    </div>
+</div>
+{% endblock %}

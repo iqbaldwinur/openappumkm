@@ -1,0 +1,152 @@
+{% extends 'master/base/base_index.html' %}
+{% load static %}
+{% block content %}
+<div class="app-content">
+    <div class="side-app">
+
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">anggaran belanja </h1>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">anggaran belanja  </li>
+                </ol>
+            </div>
+            <div class="ms-auto pageheader-btn">
+                <button type="button" class="btn btn-primary btn-icon text-white me-2"  data-bs-toggle="modal" data-bs-target="#addAnggaranBelanja">
+                    <span>
+                        <i class="fe fe-plus"></i>
+                    </span> tambah anggaran belanja 
+                </button>
+            
+
+
+                <a href="#" class="btn btn-success btn-icon text-white">
+                    <span>
+                        <i class="fe fe-log-in"></i>
+                    </span> Export
+                </a>
+            </div>
+        </div>
+        <!-- PAGE-HEADER END -->
+
+        {% comment %} modal tambah data {% endcomment %}
+        <div class="modal fade" id="addAnggaranBelanja" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">tambah distribusi modal</h5>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addAnggaranBelanjaForm" method="post" action="{% url 'create_transaksi_anggaran_belanja' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="tgl_anggaran">Tanggal Anggaran</label>
+                                <input type="date" class="form-control" id="tgl_anggaran" name="tgl_anggaran" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="store">Store</label>
+                                <input type="text" class="form-control" id="store" name="store" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="keterangan">Keterangan</label>
+                                <textarea class="form-control" id="keterangan" name="keterangan" required></textarea>
+                              </div>
+                              <div class="form-group">
+                                <label for="jumlah_anggaran">Jumlah Anggaran</label>
+                                <input type="number" class="form-control" id="jumlah_anggaran" name="jumlah_anggaran" step="0.01" required>
+                              </div>
+                                              
+                             <button type="submit" class="btn btn-primary">Save changes</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        {% comment %} <button class="btn btn-primary" id="addUserSaveBtn">Save changes</button> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- ROW-1 -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                <div class="row">
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header ">
+                        <h3 class="card-title ">Anggaran Belanja</h3>
+
+                    </div>
+                
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-nowrap border-bottom" id="basic-datatable">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal Anggaran</th>
+                                        <th>Store</th>
+                                         <th>Keterangan</th>
+                                        <th>Jumlah Anggaran</th>
+                                        <th scope="col">Edit Project Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for transaksi in transaksi_anggaran_belanja %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ transaksi.tgl_anggaran }}</td>
+                                            <td>{{ transaksi.store }}</td>
+                                            <td>{{ transaksi.keterangan }}</td>
+                                            <td>{{ transaksi.jumlah_anggaran }}</td>
+                                            
+                                            <td>
+                                                
+                                                {% comment %} <a class="btn btn-sm btn-primary" href="{% url 'edit_user' user.id %}"><i class="fa fa-edit"></i> Edit</a> {% endcomment %}
+                                                <button type="button" id="edit-button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editAnggaranBelanjal{{ transaksi.id }}"><i class="fa fa-edit"></i> Edit</button> 
+                                                
+                                                <a type="button" class="btn btn-sm btn-danger" href="{% url 'delete_transaksi_anggaran_belanja' transaksi.id %}" 
+                                                onclick="return confirm('apakah kamu ingin menghapus anggaran?');"><i class="fa fa-trash"></i> Delete</a>
+                                                <a href="{% url 'detail_anggaran_belanja_list' transaksi.id %}" class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-eye"></i> Detail
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                        {%  include 'master/edit_anggaran_belanja.html' %}
+                                        
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Modal -->
+                    </div>
+                    
+                </div>
+                </div>
+            </div>
+        </div>
+
+                    <!-- ROW-5 END -->
+                </div>
+            </div>
+        </div>
+        <!-- ROW-1 END -->
+
+        <!-- ROW-3 -->
+        <!-- ROW-3 END -->
+
+        <!-- ROW-5 -->
+    </div>
+</div>
+
+
+{% endblock %}

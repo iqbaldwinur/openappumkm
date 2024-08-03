@@ -1,0 +1,118 @@
+{% load static %}
+
+<div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
+<aside class="app-sidebar">
+  <div class="side-header">
+    <a class="header-brand1" href="dashboard.html">
+      <img
+        src="{% static 'master/assets/images/brand/logo.png' %}"
+        class="header-brand-img desktop-logo"
+        alt="logo"
+      />
+      <img
+        src="{% static 'master/assets/images/brand/logo-1.png' %}"
+        class="header-brand-img toggle-logo"
+        alt="logo"
+      />
+      <img
+        src="{% static 'master/assets/images/brand/logo-2.png' %}"
+        class="header-brand-img light-logo"
+        alt="logo"
+      />
+      <img
+        src="{% static 'master/assets/images/brand/logo-3.png' %}"
+        class="header-brand-img light-logo1"
+        alt="logo"
+      /> </a
+    ><!-- LOGO -->
+  </div>
+  <ul class="side-menu">
+    <li><h3>Main</h3></li>
+    <li>
+      <a class="side-menu__item" data-bs-toggle="slide" href=""
+        ><i class="side-menu__icon fe fe-home"></i
+        ><span class="side-menu__label">Dashboard</span></a
+      >
+    </li>
+
+    <li>
+      <a class="side-menu__item" data-bs-toggle="slide" href="#"
+        ><i class="side-menu__icon fe fe-globe"></i
+        ><span class="side-menu__label">Transaksi</span
+        ><i class="angle fa fa-angle-right"></i
+      ></a>
+      <ul class="slide-menu">
+        <li>
+          <a href="{% url 'transaksi_anggaran_belanja_list'%}" class="slide-item">Transaksi Anggaran Belanja</a>
+        </li>
+        <li>
+          <a href="{% url 'transaksi_list'%}" class="slide-item"
+            >Transaksi Realisasi Belanja</a
+          >
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a class="side-menu__item" data-bs-toggle="slide" href="#"
+        ><i class="side-menu__icon fe fe-globe"></i
+        ><span class="side-menu__label">master</span
+        ><i class="angle fa fa-angle-right"></i
+      ></a>
+      <ul class="slide-menu">
+        <li>
+          <a href="{% url 'manage_users' %}" class="slide-item">master user</a>
+        </li>
+        <li>
+          <a href="{% url 'belanja_list'%}" class="slide-item"
+            >master belanja</a
+          >
+        </li>
+        <li><a href="{% url 'ssh_list'%}" class="slide-item">master SSH</a></li>
+      </ul>
+    </li>
+
+    {% comment %}
+    <li>
+      <a class="side-menu__item" data-bs-toggle="slide" href="#"
+        ><i class="side-menu__icon fe fe-globe"></i
+        ><span class="side-menu__label">Anggaran Belanja</span
+        ><i class="angle fa fa-angle-right"></i>
+      </a>
+      <ul class="slide-menu">
+        <li>
+          <a href="{% url 'anggaran_list' %}" class="slide-item"
+            >Anggaran list</a
+          >
+        </li>
+        <li>
+          <a href="{% url 'anggaran_create' %}" class="slide-item"
+            >Anggaran form</a
+          >
+        </li>
+        <li><a href="" class="slide-item">Anggaran_confirm_delete</a></li>
+      </ul>
+    </li>
+    {% endcomment %} {% comment %}
+    <li>
+      <a class="side-menu__item" href="widgets.html"
+        ><i class="side-menu__icon fe fe-grid"></i
+        ><span class="side-menu__label">anggaran</span></a
+      >
+    </li>
+    {% endcomment %}
+
+    <li>
+      <a class="side-menu__item" href="{% url 'distribusi_modal_list' %}"
+        ><i class="side-menu__icon fe fe-grid"></i
+        ><span class="side-menu__label">distribusi modal</span></a
+      >
+    </li>
+
+    <li>
+      <a class="side-menu__item" href="{% url 'login' %}"
+        ><i class="side-menu__icon fe fe-grid"></i
+        ><span class="side-menu__label">login</span></a
+      >
+    </li>
+  </ul>
+</aside>

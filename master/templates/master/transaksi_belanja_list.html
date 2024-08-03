@@ -1,0 +1,176 @@
+{% extends 'master/base/base_index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="app-content">
+    <div class="side-app">
+
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Dashboard 01</h1>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+                </ol>
+            </div>
+            <div class="ms-auto pageheader-btn">
+                <button type="button" class="btn btn-primary btn-icon text-white me-2"  data-bs-toggle="modal" data-bs-target="#createTransaksiModal">
+                    <span>
+                        <i class="fe fe-plus"></i>
+                    </span> Tambah Transaksi
+                </button>
+                <a href="{% url 'transaksi_belanja_pdf' transaksi_id=transaksi_id %}" class="btn btn-success btn-icon text-white">
+                    <span>
+                        <i class="fe fe-log-in"></i>
+                    </span> unduh laporan
+                </a>
+            </div>
+        </div>
+        <!-- PAGE-HEADER END -->
+
+        <!-- Modal Tambah Data -->
+        <div class="modal fade" id="createTransaksiModal" tabindex="-1" role="dialog" aria-labelledby="createTransaksiModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Create Transaksi Realisasi Belanja</h5>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addTransaksiBelanjaForm" method="post" action="{% url 'create_transaksi_belanja' transaksi_id=transaksi_id %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="kode_belanja">Kode Belanja</label>
+                                <select class="form-control" id="kode_belanja" name="kode_belanja" required>
+                                    <option value="" selected disabled>Pilih Kode Belanja</option>
+                                    {% for item in belanja %}
+                                        <option value="{{ item.id }}">{{ item.nama }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tgl_belanja">Tanggal Belanja</label>
+                                <input type="date" class="form-control" id="tgl_belanja" name="tgl_belanja" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="store">Store</label>
+                                <input type="text" class="form-control" id="store" name="store" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="upload_bukti">Upload Bukti</label>
+                                <input type="file" class="form-control" id="upload_bukti" name="upload_bukti" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="keterangan">Keterangan</label>
+                                <textarea class="form-control" id="keterangan" name="keterangan" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="kode_transaksi_belanja">Kode Transaksi Belanja</label>
+                                <select class="form-control" id="kode_transaksi_belanja" name="kode_transaksi_belanja" required>
+                                    <option value="" selected disabled>Pilih Kode Anggaran Belanja</option>
+                                    {% for item in transaksi_anggaran_belanja %}
+                                        <option value="{{ item.id }}">{{ item.jumlah_anggaran }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="urai_belanja">Uraian</label>
+                                <textarea class="form-control" id="urai_belanja" name="urai_belanja" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="jumlah">Jumlah</label>
+                                <input type="number" class="form-control" id="jumlah" name="jumlah" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="realisasi">Realisasi</label>
+                                <input type="number" class="form-control" id="realisasi" name="realisasi" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW-1 -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Transaksi Belanja</h3>
+                                <div class="card-options">
+                                    <button id="add__new__list" type="button" class="btn btn-md btn-primary" data-bs-toggle="modal" data-target=".bd-example-modal-lg">
+                                        <i class="fa fa-plus"></i> Tambah Transaksi
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover card-table table-striped table-vcenter table-outline text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th>Kode Belanja</th>
+                                            <th>Tanggal Belanja</th>
+                                            <th>Store</th>
+                                            <th>Bukti</th>
+                                            <th>Keterangan</th>
+                                            <th>Kode Transaksi Belanja</th>
+                                            <th>Uraian</th>
+                                            <th>Jumlah</th>
+                                            <th>Realisasi</th>
+                                            <th>Sisa</th>
+                                            <th>Saldo</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for transaksi in transaksi_belanja %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ transaksi.kode_belanja }}</td>
+                                                <td>{{ transaksi.tgl_belanja }}</td>
+                                                <td>{{ transaksi.store }}</td>
+                                                <td>
+                                                    {% if transaksi.upload_bukti %}
+                                                    <img src="{{ transaksi.upload_bukti.url }}" alt="Bukti Belanja" style="max-width: 200px; max-height: 200px;">
+                                                    {% else %}
+                                                        No file
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ transaksi.keterangan }}</td>
+                                                <td>{{ transaksi.kode_transaksi_belanja.jumlah_anggaran }}</td>
+                                                <td>{{ transaksi.urai_belanja }}</td>
+                                                <td>{{ transaksi.jumlah }}</td>
+                                                <td>{{ transaksi.realisasi }}</td>
+                                                <td>{{ transaksi.sisa }}</td>
+                                                <td>{{ transaksi.saldo }}</td>
+                                                <td>
+                                                    <button type="button" id="edit-button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editTransaksiBelanjaModal{{ transaksi.id }}">
+                                                        <i class="fa fa-edit"></i> Edit
+                                                    </button>
+                                                    <a type="button" class="btn btn-sm btn-danger" href="{% url 'delete_transaksi_belanja' transaksi_id=transaksi_id belanja_id=transaksi.id  %}" onclick="return confirm('Apakah kamu ingin menghapus transaksi ini?');">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </a>  
+                                                </td>
+                                            </tr>
+                                            {% include 'master/edit_transaksi_modal.html' %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- Modal -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ROW-1 END -->
+    </div>
+</div>
+{% endblock %}

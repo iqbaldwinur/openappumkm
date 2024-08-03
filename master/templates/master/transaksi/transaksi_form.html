@@ -1,0 +1,55 @@
+
+				<!-- /Mobile Header -->
+{% extends 'master/base/base_index.html' %}
+{% load static %}
+{% block content %}
+                <!--app-content open-->
+				<div class="app-content">
+					<div class="side-app">
+
+						<!-- PAGE-HEADER -->
+						<div class="page-header">
+							<div>
+								<h1 class="page-title">Dashboard 01</h1>
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+								</ol>
+							</div>
+							<div class="ms-auto pageheader-btn">
+								<a href="#" class="btn btn-primary btn-icon text-white me-2">
+									<span>
+										<i class="fe fe-plus"></i>
+									</span> Add Account
+								</a>
+								<a href="#" class="btn btn-success btn-icon text-white">
+									<span>
+										<i class="fe fe-log-in"></i>
+									</span> Export
+								</a>
+							</div>
+						</div>
+						<!-- PAGE-HEADER END -->
+
+						
+						
+
+						<!-- ROW-1 -->
+
+            
+            
+              <h1>{% if form.instance.pk %}Edit Transaksi{% else %}Tambah Transaksi Baru{% endif %}</h1>
+              <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Simpan</button>
+                <a href="/master/transaksi_list.html">Batal</a>
+              </form>
+            {% endblock %}
+						<!-- ROW-1 END -->
+
+						<!-- ROW-3 -->
+						<!-- ROW-3 END -->
+
+						<!-- ROW-5 -->
+					

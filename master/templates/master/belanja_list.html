@@ -1,0 +1,133 @@
+{% extends 'master/base/base_index.html' %}
+{% load static %}
+{% block content %}
+<div class="app-content">
+    <div class="side-app">
+
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Dashboard 01</h1>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+                </ol>
+            </div>
+            <div class="ms-auto pageheader-btn">
+                <button type="button" class="btn btn-primary btn-icon text-white me-2"  data-bs-toggle="modal" data-bs-target="#addbelanjaModal">
+                    <span>
+                        <i class="fe fe-plus"></i>
+                    </span> tambah user
+                </button>
+            
+
+
+                <a href="#" class="btn btn-success btn-icon text-white">
+                    <span>
+                        <i class="fe fe-log-in"></i>
+                    </span> Export
+                </a>
+            </div>
+        </div>
+        <!-- PAGE-HEADER END -->
+
+        {% comment %} modal tambah data {% endcomment %}
+        <div class="modal fade" id="addbelanjaModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New User</h5>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addUserForm" method="post" action="{% url 'create_belanja' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="nama">Nama Belanja</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="nama"
+                                  name="nama"
+                                  value="{{ item.nama }}"
+                                  required
+                                />
+                              </div>
+                              
+                              <button type="submit" class="btn btn-primary">Save changes</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" id="addUserSaveBtn">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- ROW-1 -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                <div class="row">
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header ">
+                        <h3 class="card-title ">Projects</h3>
+                    </div>
+                
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-nowrap border-bottom" id="basic-datatable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Nama</th>
+                                        <th scope="col">Edit Project Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in belanja %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ item.nama }}</td>
+                                            <td>
+                                                
+                                                {% comment %} <a class="btn btn-sm btn-primary" href="{% url 'edit_user' user.id %}"><i class="fa fa-edit"></i> Edit</a> {% endcomment %}
+                                                <button type="button" id="edit-button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editBelanjaModal{{ item.id }}"><i class="fa fa-edit"></i> Edit</button> 
+                                                
+                                                <a type="button" class="btn btn-sm btn-danger" href="{% url 'belanja_delete' item.id %}" 
+                                                onclick="return confirm('apakah kamu ingin menghapus user?');"><i class="fa fa-trash"></i> Delete</a>
+                                            </td>
+                                        </tr>
+                                        {%  include 'master/edit_belanja_modal.html' %}
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Modal -->
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+        </div>
+                    <!-- ROW-5 END -->
+                </div>
+            </div>
+        </div>
+        <!-- ROW-1 END -->
+
+        <!-- ROW-3 -->
+        <!-- ROW-3 END -->
+
+        <!-- ROW-5 -->
+    </div>
+</div>
+
+
+{% endblock %}

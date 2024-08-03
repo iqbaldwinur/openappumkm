@@ -1,0 +1,168 @@
+{% extends 'master/base/base_index.html' %}
+{% load static %}
+{% block content %}
+
+				<div class="app-content">
+					<div class="side-app">
+
+						<!-- PAGE-HEADER -->
+						<div class="page-header">
+							<div>
+								<h1 class="page-title">Dashboard 01</h1>
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+								</ol>
+							</div>
+							<div class="ms-auto pageheader-btn">
+								<button type="button" class="btn btn-primary btn-icon text-white me-2"  data-bs-toggle="modal" data-bs-target="#addUserModal">
+									<span>
+										<i class="fe fe-plus"></i>
+									</span> tambah user
+								</button>
+							
+
+
+								<a href="#" class="btn btn-success btn-icon text-white">
+									<span>
+										<i class="fe fe-log-in"></i>
+									</span> Export
+								</a>
+							</div>
+						</div>
+						<!-- PAGE-HEADER END -->
+
+						{% comment %} modal tambah data {% endcomment %}
+						<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title">Add New User</h5>
+										<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form id="addUserForm" method="post" action="{% url 'create_user' %}">
+											{% csrf_token %}
+											<div class="form-group">
+												<label for="username">Username</label>
+												<input
+												  type="text"
+												  id="username"
+												  name="username"
+												  class="form-control"
+												  value="{{user.username}}"
+												/>
+											  </div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+										<button class="btn btn-primary" id="addUserSaveBtn">Save changes</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+
+						<!-- ROW-1 -->
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+								<div class="row">
+
+		
+						<div class="row">
+							<div class="col-12">
+								<div class="card">
+									<div class="card-header ">
+										<h3 class="card-title ">Projects</h3>
+										<div class="card-options">
+											<button id="add__new__list" type="button" class="btn btn-md btn-primary " data-bs-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus"></i> Add a new Project</button>
+										</div>
+									</div>
+                                
+									<div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered text-nowrap border-bottom" id="basic-datatable">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">No</th>
+                                                        <th scope="col">username</th>
+														<th scope="col">fullname</th>
+														<th scope="col">email</th>
+														<th scope="col">no telephone</th>
+                                                        <th scope="col">Role</th>
+                                                        <th scope="col">Staff</th>
+                                                        <th scope="col">Edit Project Details</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for user in users %}
+                                                        <tr>
+                                                            <td>{{ forloop.counter }}</td>                                               
+                                                            <td>{{ user.username }}</td>
+															<td>{{ user.fullname }}</td>
+															<td>{{ user.email }}</td>
+															<td>{{ user.nomortelephone }}</td>
+                                                            <td>{{ user.role }}</td>
+                                                            <td>{{ user.is_staff }}</td>
+                                                            <td>
+																
+                                                                {% comment %} <a class="btn btn-sm btn-primary" href="{% url 'edit_user' user.id %}"><i class="fa fa-edit"></i> Edit</a> {% endcomment %}
+																<button type="button" id="edit-button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal_{{user.id}}"><i class="fa fa-edit"></i> Edit</button> 
+																
+                                                                <a type="button" class="btn btn-sm btn-danger" href="{% url 'delete_user' user.id %}" 
+																onclick="return confirm('apakah kamu ingin menghapus user?');"><i class="fa fa-trash"></i> Delete</a>
+                                                            </td>
+                                                        </tr>
+														{%  include 'master/edit_user_modal.html' %}
+
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+										<!-- Modal -->
+									</div>
+								</div>
+                                
+								</div>
+							</div>
+						</div>
+                                    <!-- ROW-5 END -->
+								</div>
+							</div>
+						</div>
+						<!-- ROW-1 END -->
+
+						<!-- ROW-3 -->
+						<!-- ROW-3 END -->
+
+						<!-- ROW-5 -->
+					</div>
+				</div>
+				{% comment %} <script data-users="{{users}}">
+					const data = document.currentScript.dataset;
+					const users = data.users;
+
+					console.log(users)
+					const editButton = document.getElementById("edit-button");
+
+					const inputUsername = document.getElementById("username");
+					const inputRole = document.getElementById("role");
+					const inputIsActive = document.getElementById("is_active");
+					const inputIsStaff = document.getElementById("is_staff");
+
+					
+
+					function selectUser(user) {
+						console.log(user);
+
+						inputUsername.value = user.username
+						inputRole.value = user.role
+
+						console.log(inputRole.value)
+						
+
+
+					}
+				</script> {% endcomment %}
+{% endblock %}

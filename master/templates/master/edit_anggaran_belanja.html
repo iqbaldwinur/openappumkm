@@ -1,0 +1,69 @@
+<!-- edit_belanja_modal.html -->
+<div
+  class="modal fade"
+  id="editAnggaranBelanjal{{transaksi.id}}"
+  tabindex="-1"
+  role="dialog"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit transaksi</h5>
+        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          id="editTransaksiBelanjaForm"
+          method="post"
+          action="{% url 'edit_transaksi_anggaran_belanja' transaksi.id %}"
+        >
+          {% csrf_token %} {% comment %}
+          <div class="form-group">
+            <label for="anggaran">Anggaran</label>
+            <select id="anggaran" name="anggaran" class="form-control" required>
+              {% for anggaran in anggarans %}
+              <option value="{{ anggaran.id }}">{{ anggaran.nama }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% endcomment %}
+         <div class="form-group">
+                                <label for="tgl_anggaran">Tanggal Anggaran</label>
+                                <input type="date" class="form-control" id="tgl_anggaran" name="tgl_anggaran" value="{{ transaksi.tgl_anggaran }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="store">Store</label>
+                                <input type="text" class="form-control" id="store" name="store" value="{{ transaksi.store }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="keterangan">Keterangan</label>
+                                <textarea class="form-control" id="keterangan" name="keterangan" required>{{ transaksi_anggaran.keterangan }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="jumlah_anggaran">Jumlah Anggaran</label>
+                                <input type="number" class="form-control" id="jumlah_anggaran" name="jumlah_anggaran" value="{{ transaksi.jumlah_anggaran }}" required>
+                            </div>
+          {% comment %} <div class="form-group">
+            <label for="saldo_awal">Saldo Awal</label>
+            <input type="number" class="form-control" id="saldo_awal" name="saldo_awal" step="0.01" value="{% if transaksi_anggaran_belanja %}{{ transaksi_anggaran_belanja.saldo_awal }}{% endif %}" required>
+          </div> {% endcomment %}
+          {% comment %} <div class="form-group">
+            <label for="distribusi_modal">Distribusi Modal</label>
+            <select class="form-control" id="distribusi_modal" name="distribusi_modal" required>
+              {% for distribusi in distribusi_modal %}
+                <option value="{{ distribusi.id }}" {% if transaksi_anggaran_belanja and distribusi.id == transaksi_anggaran_belanja.distribusi_modal.id %}selected{% endif %}>{{ distribusi.nama_distribusi }}</option>
+              {% endfor %}
+            </select>
+          </div> {% endcomment %}
+
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

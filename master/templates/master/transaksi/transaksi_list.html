@@ -1,0 +1,244 @@
+
+{% extends 'master/base/base_index.html' %}
+{% load static %}
+{% block content %}
+
+                <!--app-content open-->
+				<div class="app-content">
+					<div class="side-app">
+
+						<!-- PAGE-HEADER -->
+						<div class="page-header">
+							<div>
+								<h1 class="page-title">Dashboard 01</h1>
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+								</ol>
+							</div>
+							<div class="ms-auto pageheader-btn">
+								<a href="/master/transaksi/transaksi_form.html" class="btn btn-primary btn-icon text-white me-2">
+									<span>
+										<i class="fe fe-plus"></i>
+									</span> tambah transaksi
+								</a>
+							
+
+
+								<a href="#" class="btn btn-success btn-icon text-white">
+									<span>
+										<i class="fe fe-log-in"></i>
+									</span> Export
+								</a>
+							</div>
+						</div>
+						<!-- PAGE-HEADER END -->
+
+						
+						
+
+						<!-- ROW-1 -->
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+								<div class="row">
+
+									<div>
+										<h2>Transaksi Terbaru</h2>
+										<ul>
+											{% for transaksi in transaksi_terbaru %}
+											<li>{{ transaksi.tgl_belanja }} - {{ transaksi.anggaran.belanja.nama }}: {{ transaksi.realisasi }}</li>
+											{% endfor %}
+										</ul>
+									</div>
+									
+									
+						<div class="row">
+							<div class="col-12 col-sm-12">
+								<div class="card ">
+									<div class="card-header">
+										<h3 class="card-title mb-0">daftar Transaksi</h3>
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table id="data-table" class="table table-bordered text-nowrap mb-0">
+												<thead class="border-top">
+												<tr>
+													<th class="bg-transparent border-bottom-0 w-5">S.no</th>
+													<th class="bg-transparent border-bottom-0">Tanggal Transaksi</th>
+													<th class="bg-transparent border-bottom-0">Nama Belanja</th>
+													<th class="bg-transparent border-bottom-0">Realisasi</th>
+													<th class="bg-transparent border-bottom-0">Aksi</th>
+													<th class="bg-transparent border-bottom-0">Action</th>
+												</tr>
+												</thead>
+												<tbody>
+													<tr class="border-bottom">
+														<td class="text-muted fs-15 fw-semibold text-center">01.</td>
+														<td>
+															<div class="d-flex">
+																<span class="avatar avatar-md brround mt-1" style="background-image: url(../../assets/images/users/11.jpg)"></span>
+																<div class="ms-2 mt-0 mt-sm-2 d-block">
+																	<h6 class="mb-0 fs-14 fw-semibold">Jake poole</h6>
+																	<span class="fs-12 text-muted">jacke123@gmail.com</span>
+																</div>
+															</div>
+														</td>
+														<td class="text-muted fs-15 fw-semibold">20-11-2020 </td>
+														<td class="text-muted fs-15 fw-semibold">$5.321.2</td>
+														<td class="text-success fs-15 fw-semibold">Success</td>
+														<td class="">
+															<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-toggle="tooltip" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
+															<a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete"><i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i></a>
+														</td>
+													</tr>
+													{% for transaksi in transaksi %}
+
+													<tr class="border-bottom">
+														<td class="text-muted fs-15 fw-semibold text-center">02.</td>
+														
+														<td class="text-muted fs-15 fw-semibold">{{transaksi.tgl_belanka}} </td>
+														<td class="text-muted fs-15 fw-semibold">{{ transaksi.anggaran.belanja.nama}}</td>
+														<td class="text-success fs-15 fw-semibold">{{transaksi.realisasi}}</td>
+														<td class="">
+															<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-toggle="tooltip" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
+															<a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete"><i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i></a>
+														</td>
+													</tr>
+													{% empty %}
+    													<tr><td colspan="3">Tidak ada transaksi.</td></tr>
+													{% endfor %}
+
+													<tr class="border-bottom">
+														<td class="text-muted fs-15 fw-semibold text-center">03.</td>
+														<td>
+															<div class="d-flex">
+																<span class="avatar avatar-md brround mt-1" style="background-image: url(../../assets/images/users/12.jpg)"></span>
+																<div class="ms-2 mt-0 mt-sm-2 d-block">
+																	<h6 class="mb-0 fs-14 fw-semibold">Jacob Thomson</h6>
+																	<span class="fs-12 text-muted">jacobthomson@gmail.com</span>
+																</div>
+															</div>
+														</td>
+														<td class="text-muted fs-15 fw-semibold">20-11-2020 </td>
+														<td class="text-muted fs-15 fw-semibold">$1,56,3654</td>
+														<td class="text-primary fs-15 fw-semibold">Pending</td>
+														<td class="">
+															<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-toggle="tooltip" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
+															<a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete"><i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i></a>
+														</td>
+													</tr>
+													<tr class="border-bottom">
+														<td class="text-muted fs-15 fw-semibold text-center">04.</td>
+														<td>
+															<div class="d-flex">
+																<span class="avatar avatar-md brround mt-1" style="background-image: url(../../assets/images/users/13.jpg)"></span>
+																<div class="ms-2 mt-0 mt-sm-2 d-block">
+																	<h6 class="mb-0 fs-14 fw-semibold">Trevor Thomson</h6>
+																	<span class="fs-12 text-muted">trevor@gmail.com</span>
+																</div>
+															</div>
+														</td>
+														<td class="text-muted fs-15 fw-semibold">19-11-2020 </td>
+														<td class="text-muted fs-15 fw-semibold">$12.3</td>
+														<td class="text-success fs-15 fw-semibold">Success</td>
+														<td class="">
+															<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-toggle="tooltip" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
+															<a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete"><i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i></a>
+														</td>
+													</tr>
+													<tr class="border-bottom">
+														<td class="text-muted fs-15 fw-semibold text-center">05.</td>
+														<td>
+															<div class="d-flex">
+																<span class="avatar avatar-md brround mt-1" style="background-image: url(../../assets/images/users/2.jpg)"></span>
+																<div class="ms-2 mt-0 mt-sm-2 d-block">
+																	<h6 class="mb-0 fs-14 fw-semibold">Kylie north</h6>
+																	<span class="fs-12 text-muted">kylie@gmail.com</span>
+																</div>
+															</div>
+														</td>
+														<td class="text-muted fs-15 fw-semibold">19-11-2020 </td>
+														<td class="text-muted fs-15 fw-semibold">$5.312.2</td>
+														<td class="text-primary fs-15 fw-semibold">Pending</td>
+														<td class="">
+															<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-toggle="tooltip" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
+															<a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete"><i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i></a>
+														</td>
+													</tr>
+													<tr class="border-bottom">
+														<td class="text-muted fs-15 fw-semibold text-center">06.</td>
+														<td>
+															<div class="d-flex">
+																<span class="avatar avatar-md brround mt-1" style="background-image: url(../../assets/images/users/14.jpg)"></span>
+																<div class="ms-2 mt-0 mt-sm-2 d-block">
+																	<h6 class="mb-0 fs-14 fw-semibold">Jan Hodges</h6>
+																	<span class="fs-12 text-muted">jan@gmail.com</span>
+																</div>
+															</div>
+														</td>
+														<td class="text-muted fs-15 fw-semibold">19-11-2020 </td>
+														<td class="text-muted fs-15 fw-semibold">$5.312.2</td>
+														<td class="text-danger fs-15 fw-semibold">Cancel</td>
+														<td class="">
+															<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-toggle="tooltip" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
+															<a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete"><i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i></a>
+														</td>
+													</tr>
+													<tr class="border-bottom">
+														<td class="text-muted fs-15 fw-semibold text-center">07.</td>
+														<td>
+															<div class="d-flex">
+																<span class="avatar avatar-md brround mt-1" style="background-image: url(../../assets/images/users/4.jpg)"></span>
+																<div class="ms-2 mt-0 mt-sm-2 d-block">
+																	<h6 class="mb-0 fs-14 fw-semibold">Trevor Thomson</h6>
+																	<span class="fs-12 text-muted">trevor@gmail.com</span>
+																</div>
+															</div>
+														</td>
+														<td class="text-muted fs-15 fw-semibold">19-11-2020 </td>
+														<td class="text-muted fs-15 fw-semibold">$2,24,1421</td>
+														<td class="text-success fs-15 fw-semibold">Success</td>
+														<td class="">
+															<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-toggle="tooltip" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
+															<a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete"><i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i></a>
+														</td>
+													</tr>
+													<tr>
+														<td class="text-muted fs-15 fw-semibold text-center">08.</td>
+														<td>
+															<div class="d-flex">
+																<span class="avatar avatar-md brround mt-1" style="background-image: url(../../assets/images/users/5.jpg)"></span>
+																<div class="ms-2 mt-0 mt-sm-2 d-block">
+																	<h6 class="mb-0 fs-14 fw-semibold">Emily Lewis</h6>
+																	<span class="fs-12 text-muted">emily@gmail.com</span>
+																</div>
+															</div>
+														</td>
+														<td class="text-muted fs-15 fw-semibold">19-11-2020 </td>
+														<td class="text-muted fs-15 fw-semibold">$9.321.2</td>
+														<td class="text-danger fs-15 fw-semibold">Cancel</td>
+														<td class="">
+															<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-toggle="tooltip" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
+															<a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete"><i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i></a>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div><!-- COL END -->
+						</div><!-- ROW-5 END -->
+								</div>
+							</div>
+						</div>
+						<!-- ROW-1 END -->
+
+						<!-- ROW-3 -->
+						<!-- ROW-3 END -->
+
+						<!-- ROW-5 -->
+					</div>
+				</div>
+				<!-- CONTAINER END -->
+				{% endblock %}

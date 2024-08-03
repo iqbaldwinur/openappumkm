@@ -1,0 +1,161 @@
+{% extends 'master/base/base_index.html' %}
+{% load static %}
+{% block content %}
+<div class="app-content">
+    <div class="side-app">
+
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title"> Anggaran Detail</h1>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Anggaran Detail </li>
+                </ol>
+            </div>
+            <div class="ms-auto pageheader-btn">
+                <button type="button" class="btn btn-primary btn-icon text-white me-2"  data-bs-toggle="modal" data-bs-target="#createdetailTransaksiModal">
+                    <span>
+                        <i class="fe fe-plus"></i>
+                    </span> tambah Anggaran
+                </button>
+            
+
+
+               
+            </div>
+        </div>
+        <!-- PAGE-HEADER END -->
+
+        {% comment %} modal tambah data {% endcomment %}
+        <div class="modal fade" id="createdetailTransaksiModal" tabindex="-1" role="dialog" aria-labelledby="createdetailTransaksiModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Create detail Anggaran Belanja</h5>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="adddetailTransaksiBelanjaForm" method="post" action="{% url 'create_detail_transaksi_belanja' anggaran_id=anggaran_id %}">
+                            {% csrf_token %}
+                           
+                            <div class="form-group">
+                                <label for="kode_belanja">Kode Belanja</label>
+                                <select class="form-control" id="kode_belanja" name="kode_belanja" required>
+                                    <option value="" selected disabled>pilih kode belanja </option>
+                                    {% for item in belanja %}
+                                        <option value="{{ item.id }}">{{ item.nama }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="kode_transaksi_belanja"> anggaran</label>
+                                <select class="form-control" id="kode_transaksi_belanja" name="kode_transaksi_belanja" required>
+                                    <option value="" selected disabled>pilih kode Anggaran Belanja </option>
+                                    {% for item in transaksi_anggaran_belanja %}
+                                        <option value="{{ item.id }}">{{ item.jumlah_anggaran }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                              
+                    
+                              
+                              <div class="form-group">
+                                <label for="jumlah">Jumlah</label>
+                                <input type="number" class="form-control" id="jumlah" name="jumlah" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="harga">harga</label>
+                                <input type="number" class="form-control" id="harga" name="harga" required>
+                              </div>
+                              
+                              
+                              <button type="submit" class="btn btn-primary">Save changes</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        {% comment %} <button class="btn btn-primary" id="addUserSaveBtn">Save changes</button> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- ROW-1 -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                <div class="row">
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header ">
+                        <h3 class="card-title ">Projects</h3>
+                        <div class="card-options">
+                            <button id="add__new__list" type="button" class="btn btn-md btn-primary " data-bs-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus"></i> Add a new Project</button>
+                        </div>
+                    </div>
+                
+                        
+                        <div class="table-responsive">
+                            <table class="table table-hover card-table table-striped table-vcenter table-outline text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th>Kode Belanja</th>
+                                        <th>kode transaksi belanja</th>
+                                        <th>Jumlah</th>
+                                        <th>harga</th>
+                                        
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for transaksi in transaksi_anggaran %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ transaksi.kode_belanja.nama }}</td>
+                                        <td>{{ transaksi.transaksi_anggaran.jumlah_anggaran }}
+                                        <td>{{ transaksi.jumlah }}</td>
+                                        <td>{{ transaksi.harga }}</td>
+                                        <td>
+                                            
+                                           
+                                                
+                                                {% comment %} <a class="btn btn-sm btn-primary" href="{% url 'edit_user' user.id %}"><i class="fa fa-edit"></i> Edit</a> {% endcomment %}
+                                                <button type="button" id="edit-button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editDetailTransaksiBelanjaModal{{ transaksi.id }}"><i class="fa fa-edit"></i> Edit</button> 
+                                                
+                                                <a type="button" class="btn btn-sm btn-danger" href="{% url 'delete_detail_transaksi_belanja' transaksi.id %}" 
+                                                onclick="return confirm('apakah kamu ingin menghapus user?');"><i class="fa fa-trash"></i> Delete</a>
+                                            </td>
+                                        </tr>
+                                        {%  include 'master/edit_detail_transaksi_modal.html' %}
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Modal -->
+                    </div>
+                    
+                
+                </div>
+            </div>
+        </div>
+                    <!-- ROW-5 END -->
+                </div>
+            </div>
+        </div>
+        <!-- ROW-1 END -->
+
+        <!-- ROW-3 -->
+        <!-- ROW-3 END -->
+
+        <!-- ROW-5 -->
+    </div>
+</div>
+
+
+{% endblock %}
